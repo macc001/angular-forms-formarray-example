@@ -83,7 +83,7 @@ export class AppComponent {
     console.log(this.shoppingList);
   }
 
-  subtractShopping(index: number, id: number) {
+  subtractShopping(index: number, id: string) {
     const add = this.listShoppingForm.get('shopping') as FormArray;
     const valueItem = add.at(index).value;
     add
@@ -102,7 +102,7 @@ export class AppComponent {
     });
   }
 
-  addShopping(index: number, id: number) {
+  addShopping(index: number, id: string) {
     const add = this.listShoppingForm.get('shopping') as FormArray;
     const valueItem = add.at(index).value;
     add
@@ -121,7 +121,7 @@ export class AppComponent {
     });
   }
 
-  deleteShopping(index: number, id: number) {
+  deleteShopping(index: number, id: string) {
     const add = this.listShoppingForm.get('shopping') as FormArray;
     add.removeAt(index);
     this.shoppingList = this.shoppingList.filter((item) => item.id !== id);
