@@ -9,8 +9,8 @@ export class AppComponent {
   form: FormGroup;
   listShoppingForm: FormGroup;
   shoppingList = [
-    { id: '2', price: 32 },
-    { id: 3, price: 30 },
+    { id: this.uidV2(), price: 32 },
+    { id: this.uidV2(), price: 30 },
   ];
 
   constructor(private fb: FormBuilder) {
