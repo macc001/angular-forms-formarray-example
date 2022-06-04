@@ -29,12 +29,16 @@ result
     <button (click)="subtractShopping(i, item.id)">-</button>
     <ng-container formArrayName="shopping">
       <ng-container [formGroupName]="i">
-        <input formControlName="item" (change)="changeInputShopping(i)" />
+        <input
+          formControlName="item"
+          (change)="changeInputShopping(i, item.id)"
+        />
       </ng-container>
     </ng-container>
     <button (click)="addShopping(i, item.id)">+</button>
     <button (click)="deleteShopping(i, item.id)">Delete {{ i }}</button>
   </div>
+  <div>Total : {{ totalUnit }}</div>
 </div>
 <pre
   >{{ listShoppingForm.value | json }}

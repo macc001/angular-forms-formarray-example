@@ -64,6 +64,7 @@ export class AppComponent {
         })
       );
     });
+    this.totalUnidades();
   }
 
   newShopping() {
@@ -75,12 +76,21 @@ export class AppComponent {
     );
     const uid = this.uidV1();
     this.shoppingList.push({ id: uid, price: 1 });
+    this.totalUnidades();
   }
 
-  changeInputShopping(i: any) {
-    console.log(i);
-    console.log(this.listShoppingForm.value);
-    console.log(this.shoppingList);
+  changeInputShopping(index: number, id: string) {
+    const add = this.listShoppingForm.get('shopping') as FormArray;
+    const value = add.at(index).value;
+    this.setShoppingPrice(value, id);
+  }
+
+  totalUnit = 0;
+  totalUnidades() {
+    this.totalUnit = 0;
+    this.shoppingList.forEach((item) => {
+      this.totalUnit = this.totalUnit + Number(item?.price);
+    });
   }
 
   subtractShopping(index: number, id: string) {
@@ -91,15 +101,7 @@ export class AppComponent {
       .get('item')
       .patchValue(Number(valueItem.item) - 1);
     const newValue = add.at(index).value;
-    this.shoppingList = this.shoppingList.map((item) => {
-      if (item.id == id) {
-        return {
-          ...item,
-          price: newValue.item,
-        };
-      }
-      return item;
-    });
+    this.setShoppingPrice(newValue, id);
   }
 
   addShopping(index: number, id: string) {
@@ -110,15 +112,20 @@ export class AppComponent {
       .get('item')
       .patchValue(Number(valueItem.item) + 1);
     const newValue = add.at(index).value;
+    this.setShoppingPrice(newValue, id);
+  }
+
+  setShoppingPrice(value: { item: string }, id: string) {
     this.shoppingList = this.shoppingList.map((item) => {
       if (item.id == id) {
         return {
           ...item,
-          price: newValue.item,
+          price: Number(value.item),
         };
       }
       return item;
     });
+    this.totalUnidades();
   }
 
   deleteShopping(index: number, id: string) {
