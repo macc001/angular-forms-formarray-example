@@ -1,45 +1,44 @@
 <div [formGroup]="form">
   <div>
     <input type="text" formControlName="name" />
-  </div>
-  <div>
     <button (click)="addNewAddressGroup()">Add</button>
     <button (click)="deleteEmpty()">Delete</button>
   </div>
-
   <div
     *ngFor="let addressGroup of form.get('address').controls; let i = index"
     [formGroup]="addressGroup"
   >
     form No : {{ i }}
-    <div>street <input formControlName="street" /></div>
-
-    <div>city <input formControlName="city" /></div>
-    <button (click)="deleteAddressGroup(i)">Delete - {{ i }}</button>
+    <div>
+      street <input formControlName="street" /> city
+      <input formControlName="city" />
+      <button (click)="deleteAddressGroup(i)">Delete - {{ i }}</button>
+    </div>
   </div>
 </div>
-
 <br />
-<br />
-<br />
-<br />
-result <br />
-
+result
 <pre
   >{{ form.value | json }}
 </pre>
-
-<hr />
-<hr />
-
+<hr style="border: 1px solid red;" />
+<button (click)="newShopping()">New Item</button>
 <div [formGroup]="listShoppingForm">
   <div *ngFor="let item of shoppingList; let i = index">
-    shopping
+    shopping:
+    <button (click)="subtractShopping(i, item.id)">-</button>
     <ng-container formArrayName="shopping">
       <ng-container [formGroupName]="i">
         <input formControlName="item" (change)="changeInputShopping(i)" />
       </ng-container>
     </ng-container>
-    <button (click)="deleteAddressGroup(i)">Delete - {{ item.id }}</button>
+    <button (click)="addShopping(i, item.id)">+</button>
+    <button (click)="deleteShopping(i, item.id)">Delete {{ i }}</button>
   </div>
 </div>
+<pre
+  >{{ listShoppingForm.value | json }}
+</pre>
+<pre
+  >{{ shoppingList | json }}
+</pre>
