@@ -7,12 +7,23 @@ import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 })
 export class AppComponent {
   form: FormGroup;
+  listShoppingForm: FormGroup;
+  shoppingList = [
+    { id: 1, price: 2 },
+    { id: 2, price: 32 },
+    { id: 3, price: 30 },
+  ];
 
   constructor(private fb: FormBuilder) {
     this.form = fb.group({
       name: [],
       address: fb.array([]),
     });
+
+    this.listShoppingForm = fb.group({
+      shopping: fb.array([]),
+    });
+    this.addShopping();
   }
 
   addNewAddressGroup() {
@@ -42,5 +53,21 @@ export class AppComponent {
     indexToRemove.reverse().forEach((index) => {
       fromArray.removeAt(index);
     });
+  }
+
+  // SHOPPING
+  addShopping() {
+    this.shoppingList.forEach((item) => {
+      const add = this.listShoppingForm.get('shopping') as FormArray;
+      add.push(
+        this.fb.group({
+          item: '0',
+        })
+      );
+    });
+  }
+
+  changeInputShopping() {
+    console.log(this.listShoppingForm.value);
   }
 }
