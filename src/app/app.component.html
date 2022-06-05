@@ -23,6 +23,7 @@ result
 </pre>
 <hr style="border: 1px solid red;" />
 <button (click)="newShopping()">New Item</button>
+<button (click)="deleteAll()">Delete All</button>
 <div [formGroup]="listShoppingForm">
   <div *ngFor="let item of shoppingList; let i = index">
     shopping:

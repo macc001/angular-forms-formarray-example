@@ -98,8 +98,8 @@ export class AppComponent {
     const valueItem = add.at(index).value;
     add
       .at(index)
-      .get('item')
-      .patchValue(Number(valueItem.item) - 1);
+      ?.get('item')
+      ?.patchValue(Number(valueItem.item) - 1);
     const newValue = add.at(index).value;
     this.setShoppingPrice(newValue, id);
   }
@@ -109,8 +109,8 @@ export class AppComponent {
     const valueItem = add.at(index).value;
     add
       .at(index)
-      .get('item')
-      .patchValue(Number(valueItem.item) + 1);
+      ?.get('item')
+      ?.patchValue(Number(valueItem.item) + 1);
     const newValue = add.at(index).value;
     this.setShoppingPrice(newValue, id);
   }
@@ -132,6 +132,13 @@ export class AppComponent {
     const add = this.listShoppingForm.get('shopping') as FormArray;
     add.removeAt(index);
     this.shoppingList = this.shoppingList.filter((item) => item.id !== id);
+  }
+
+  deleteAll() {
+    const add = this.listShoppingForm.get('shopping') as FormArray;
+    add.controls = [];
+    this.listShoppingForm.reset();
+    this.shoppingList = [];
   }
 
   //GENERATE UID
